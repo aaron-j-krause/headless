@@ -17,7 +17,8 @@
     "koa": "^1.2.0",
     "koa-bodyparser": "^2.2.0",
     "koa-multer": "^1.0.0",
-    "koa-static": "^2.0.0"
+    "koa-static": "^2.0.0",
+    "mongoose": "^4.4.19"
   },
   "devDependencies": {
     "chai": "^3.5.0",

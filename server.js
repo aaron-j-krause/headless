@@ -7,7 +7,7 @@ app.use(require('koa-bodyparser')());
 app.use(static(`${__dirname}/dashboard/`));
 
 app.use(router.post('/content', function *() {
- this.body = 'made ti';
+  this.body = 'made ti';
 }));
 
 app.use(function *() {
