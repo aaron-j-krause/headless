@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Headless</title>
+</head>
+<body>
+  <h1>Headless</h1>
+  <form id="new_article" action="/content" method="POST">
+    <input type="text" placeholder="title" name="title"/>
+    <input type="text" placeholder="content" name="content"/>
+    <button type="submit">Submit</button>
+  </form>
+  <script src="./superagent.js"></script>
+  <script src="./scripts/index.js"></script>
+</body>
+</html>
