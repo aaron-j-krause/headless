@@ -4,7 +4,7 @@ const router = require('koa-route');
 
 //app.use(require('koa-multer')({}))
 app.use(require('koa-bodyparser')());
-app.use(static(`${__dirname}/dashboard/`));
+app.use(static(`${__dirname}/`));
 
 app.use(router.post('/content', function *() {
   this.body = 'made ti';

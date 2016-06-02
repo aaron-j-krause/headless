@@ -1,8 +1,8 @@
 'use strict';
-const expect = require('chai').expect;
-const fileWriter = require('../lib/file_writer');
-const fs = require('fs');
-const del = require('del');
+const expect      = require('chai').expect;
+const fileWriter  = require('../lib/file_writer');
+const fs          = require('fs');
+const del         = require('del');
 
 //use non arrow to set suite props
 describe('File Writer', function() {
@@ -32,7 +32,7 @@ describe('File Writer', function() {
     });
   });
 
-  it('should write an HTML file', (done) => {
+  it('should write an HTML article', (done) => {
     let path = `${this.tempDirPath}/test_html.html`;
     let content = {
       title: 'test title',
@@ -40,7 +40,7 @@ describe('File Writer', function() {
       body: 'test body'
     };
 
-    fileWriter.writeHTMLFile(path, content, (err) => {
+    fileWriter.writeArticleToFile(path, content, (err) => {
       if (err) throw err;
 
       fs.readFile(path, (err, data) => {
@@ -54,5 +54,27 @@ describe('File Writer', function() {
         done();
       });
     });
+
   });
+
+  it('should write a full page', (done) => {
+    let path = `${this.tempDirPath}/test_blog.html`;
+    let articles = [{author: 'a-one', title:'t-one', body:'b-one'},
+      {author: 'a-two', title: 't-two', body: 'b-two'}
+    ];
+
+    fileWriter.writePageToFile(path, articles, (err) => {
+      if(err) throw err;
+      fs.readFile(path, (err, data) => {
+        if (err) throw err;
+
+        expect(~data.indexOf('a-one')).to.not.eql(0);
+        expect(~data.indexOf('a-two')).to.not.eql(0);
+        expect(~data.indexOf('section')).to.not.eql(0);
+
+        done();
+      });
+    });
+  });
+
 });
