@@ -20,7 +20,7 @@ describe('File Writer', function() {
   });
 
   it('should write a file', (done) => {
-    let path = `${this.tempDirPath}/test_one.txt`;
+    let path = `${this.tempDirPath}/test_text.txt`;
     fileWriter.writeTextFile(path, 'test', (err) => {
       if (err) throw err;
       fs.readFile(path, (err, data) => {
@@ -29,6 +29,27 @@ describe('File Writer', function() {
         done();
       });
     });
-    
+  });
+
+  it('should write an HTML file', (done) => {
+    let content = {
+      title: 'test title',
+      author: 'test author',
+      body: 'test body'
+    };
+    let path = `${this.tempDirPath}/test_html.html`;
+
+    fileWriter.writeHTMLFile(path, content, (err) => {
+      if (err) throw err;
+      fs.readFile(path, (err, data) => {
+        data = data.toString();
+        expect(~data.indexOf('test title')).to.not.eql(0);
+        expect(~data.indexOf('test author')).to.not.eql(0);
+        expect(~data.indexOf('test body')).to.not.eql(0);
+        expect(~data.indexOf('<section>')).to.not.eql(0);
+
+        done();
+      });
+    });
   });
 });
