@@ -1,21 +1,18 @@
 'use strict';
-const app         = require('koa')();
-const staticServe = require('koa-static');
-const router      = require('koa-route');
-const Article     = require('./models/article');
-const mongoose    = require('mongoose');
+const app           = require('koa')();
+const staticServe   = require('koa-static');
+const articleRouter = require('./routes/article_routes');
+const mongoose      = require('mongoose');
+const dbport        = process.env.MONGODB_URI || 'mongodb://localhost/dev_db';
 
 //config
-mongoose.connect('mongodb://localhost/dev_db');
+mongoose.connect(dbport);
 
 app.use(require('koa-bodyparser')());
 app.use(staticServe(`${__dirname}/`));
 
-app.use(router.post('/content', function *() {
-  let newArticle = new Article(this.request.body);
 
-  this.body = yield newArticle.save();
-}));
+app.use(articleRouter.routes());
 
 app.use(function *() {
   this.body = 'hi';
