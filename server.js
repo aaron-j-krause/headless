@@ -1,13 +1,20 @@
-const app = require('koa')();
-const static = require('koa-static');
-const router = require('koa-route');
+'use strict';
+const app         = require('koa')();
+const staticServe = require('koa-static');
+const router      = require('koa-route');
+const Article     = require('./models/article');
+const mongoose    = require('mongoose');
 
-//app.use(require('koa-multer')({}))
+//config
+mongoose.connect('mongodb://localhost/dev_db');
+
 app.use(require('koa-bodyparser')());
-app.use(static(`${__dirname}/`));
+app.use(staticServe(`${__dirname}/`));
 
 app.use(router.post('/content', function *() {
-  this.body = 'made ti';
+  let newArticle = new Article(this.request.body);
+
+  this.body = yield newArticle.save();
 }));
 
 app.use(function *() {
