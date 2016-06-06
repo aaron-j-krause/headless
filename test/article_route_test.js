@@ -68,5 +68,14 @@ describe('Article Router', function() {
           done();
         });
     });
+
+    it('should delete an article' , done => {
+      request(baseUri)
+        .delete(`/content/${this.testArticle._id}`)
+        .end((err, res) => {
+          expect(res.body.message).to.eql('deleted!');
+          done();
+        });
+    });
   });
 });

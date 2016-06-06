@@ -19,6 +19,14 @@ router.get('/content', function *() {
 
 router.put('/content/:id', function *() {
   let _id = this.params.id;
-  yield Article.findOneAndUpdate({_id}, this.request.body);
+  yield Article.findOneAndUpdate({_id}, this.request.body)
+    .exec().catch(err => console.dir(err));
   this.body = {message: 'updated!'};
+});
+
+router.delete('/content/:id', function *() {
+  let _id = this.params.id;
+  yield Article.findOneAndRemove({_id})
+    .exec().catch( err => console.dir(err));
+  this.body = {message: 'deleted!'};
 });
