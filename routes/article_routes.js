@@ -17,6 +17,11 @@ router.get('/content', function *() {
   this.body = view;
 });
 
+router.get('/content/all', function *() {
+  let articles = yield Article.find({});
+  this.body = {articles};
+});
+
 router.put('/content/:id', function *() {
   let _id = this.params.id;
   yield Article.findOneAndUpdate({_id}, this.request.body)

@@ -6,20 +6,20 @@ const del         = require('del');
 
 //use non arrow to set suite props
 describe('File Writer', function() {
-  before((done) => {
+  before(done => {
     this.tempDirPath = `${__dirname}/${Date.now()}`;
-    fs.mkdir(this.tempDirPath, (err) => {
+    fs.mkdir(this.tempDirPath, err => {
       if (err) throw err;
       done();
     });
   });
 
-  after((done) => {
+  after(done => {
     del(this.tempDirPath)
       .then(() => done(), (err) =>  {throw err;});
   });
 
-  it('should write a file', (done) => {
+  it('should write a file', done => {
     let path = `${this.tempDirPath}/test_text.txt`;
 
     fileWriter.writeTextFile(path, 'test', (err) => {
@@ -32,7 +32,7 @@ describe('File Writer', function() {
     });
   });
 
-  it('should write an HTML article', (done) => {
+  it('should write an HTML article', done => {
     let path = `${this.tempDirPath}/test_html.html`;
     let content = {
       title: 'test title',

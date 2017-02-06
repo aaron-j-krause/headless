@@ -14,7 +14,7 @@ require('../server');
 
 describe('Article Router', function() {
   after(done => {
-    mongoose.connection.db.dropDatabase(() => done());
+    mongoose.connection.db.dropDatabase(done);
   });
 
   it('should create a new article', done => {
